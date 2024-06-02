@@ -25,6 +25,7 @@ namespace Word_Kylosov
         public MainWindow()
         {
             InitializeComponent();
+            LoadRooms();
         }
 
         private void Report(object sender, RoutedEventArgs e)

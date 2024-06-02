@@ -12,12 +12,14 @@ namespace Word_Kylosov.Models
         public string LastName { get; set; }
         public string SurName { get; set; }
         public int NumberRoom { get; set; }
-        public Owner(string FirstName, string LastName, string SurName, int NumberRoom)
+        public string PhotoPath { get; set; }
+        public Owner(string FirstName, string LastName, string SurName, int NumberRoom, string PhotoPath)
         { 
             this.FirstName = FirstName;
             this.LastName = LastName;
             this.SurName = SurName;
             this.NumberRoom = NumberRoom;
+            this.PhotoPath = PhotoPath;
         }
     }
 }
