@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              FontFamily="Bahnscrift left">
     <Grid>
-        <Image VerticalAlignment="Top" HorizontalAlignment="Left" Width="30" Height="30" Margin="10" Source="/Word_Kylosov/Images/owner.png"/>
+        <Image VerticalAlignment="Top" HorizontalAlignment="Left" Width="30" Height="30" Margin="10" Source="/Word_Kylosov;component/Images/owner.png"/>
         <Label x:Name="NameOwner" Margin="45, 0, 10, 0" VerticalAlignment="Top" VerticalContentAlignment="Center" Content="Тест Тест Тест" Height="50"/>
     </Grid>
 </UserControl>
