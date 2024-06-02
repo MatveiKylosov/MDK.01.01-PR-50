@@ -33,10 +33,10 @@ namespace Word_Kylosov.Context
             allOwenrs.Add(new OwnerContext("Test52", "Test53", "Test54", 15, "C:\\Users\\matve\\Pictures\\testt.png"));
             allOwenrs.Add(new OwnerContext("Test55", "Test56", "Test57", 16, "C:\\Users\\matve\\Pictures\\testt.png"));
             allOwenrs.Add(new OwnerContext("Test58", "Test59", "Test60", 14, "C:\\Users\\matve\\Pictures\\testt.png"));
-            allOwenrs.Add(new OwnerContext("Test61", "Test62", "Test63", 17, "C:\\Users\\matve\\Pictures\\testt.png"));
-            allOwenrs.Add(new OwnerContext("Test64", "Test65", "Test66", 17, "C:\\Users\\matve\\Pictures\\testt.png"));
+            allOwenrs.Add(new OwnerContext("Test61", "Test62", "Test63", 1, "C:\\Users\\matve\\Pictures\\testt.png"));
+            allOwenrs.Add(new OwnerContext("Test64", "Test65", "Test66", 1, "C:\\Users\\matve\\Pictures\\testt.png"));
             allOwenrs.Add(new OwnerContext("Test67", "Test68", "Test69", 1, "C:\\Users\\matve\\Pictures\\testt.png"));
-            allOwenrs.Add(new OwnerContext("Test70", "Test71", "Test72", 1, "C:\\Users\\matve\\Pictures\\testt.png"));
+            allOwenrs.Add(new OwnerContext("Test70", "Test71", "Test72", 1, "C:\\Users\\matve\\Desktop\\Обои\\1.png"));
             return allOwenrs;
         }
 
@@ -159,6 +159,5 @@ namespace Word_Kylosov.Context
             Cell.Text = Text;
             Cell.ParagraphFormat.Alignment = Alignment;
         }
-
     }
 }

@@ -33,9 +33,6 @@ namespace Word_Kylosov.Elements
             List<OwnerContext> roomOwners = OwnerContext.AllOwners().FindAll(x => x.NumberRoom == Room);
             foreach(OwnerContext roomOwner in roomOwners)
                 Parent.Children.Add(new Elements.Owner(roomOwner));
-
-            if (Parent.Children.Count == 0)
-                this.Height = this.Width = 0;
         }
     }
 }
