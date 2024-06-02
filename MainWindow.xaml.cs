@@ -39,8 +39,9 @@ namespace Word_Kylosov
 
         public void LoadRooms()
         {
-            for(int i = 1; i < 20;  i++)
-                Parent.Children.Add(new Elements.Room(i));
+            var distinctRoomNumbers = OwnerContext.AllOwners().Select(owner => owner.NumberRoom).Distinct().ToList();
+            for (int i = 0; i < distinctRoomNumbers.Count;  i++)
+                Parent.Children.Add(new Elements.Room(distinctRoomNumbers[i]));
         }
     }
 }
