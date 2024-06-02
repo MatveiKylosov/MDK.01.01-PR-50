@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Word_Kylosov.Context;
 
 namespace Word_Kylosov
 {
@@ -23,6 +25,21 @@ namespace Word_Kylosov
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Report(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Word Files (*.docx)|*.docx";
+            sfd.ShowDialog();
+            if(sfd.FileName != "")
+                OwnerContext.Report(sfd.FileName);
+        }
+
+        public void LoadRooms()
+        {
+            for(int i = 1; i < 20;  i++)
+                Parent.Children.Add(new Elements.Room(i));
         }
     }
 }
