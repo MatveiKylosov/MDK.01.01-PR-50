@@ -42,7 +42,7 @@ namespace Word_Kylosov.Context
 
         public static void Report(string fileName)
         {
-            // Создаём приложение
+            // Создаём приложение Word
             Word.Application app = new Word.Application();
             // Создаём документ
             Word.Document doc = app.Documents.Add();
@@ -57,47 +57,47 @@ namespace Word_Kylosov.Context
             paraHeader.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
             // Убираем отступ
             paraHeader.Range.ParagraphFormat.SpaceAfter = 0;
-            // Убираем жирность
+            // Устанавливаем жирный шрифт
             paraHeader.Range.Font.Bold = 1;
-            // Добавляем на документ
+            // Добавляем заголовок в документ
             paraHeader.Range.InsertParagraphAfter();
 
             // Создаём подзаголовок
             Word.Paragraph paraAddress = doc.Paragraphs.Add();
-            // Указываем шрифт
+            // Указываем шрифт для подзаголовка
             paraAddress.Range.Font.Size = 14;
-            // Задаём текст
+            // Задаём текст подзаголовка
             paraAddress.Range.Text = "по адресу: г. Пермь, ул. Луначарского, д. 24";
             // Убираем отступ
             paraAddress.Range.ParagraphFormat.SpaceAfter = 20;
-            // Убираем жирность
+            // Отключаем жирный шрифт
             paraAddress.Range.Font.Bold = 0;
-            // Добавляем на документ
+            // Добавляем подзаголовок в документ
             paraAddress.Range.InsertParagraphAfter();
 
-            // Создаём заголовок
+            // Создаём заголовок для количества жильцов
             Word.Paragraph paraCount = doc.Paragraphs.Add();
-            // Указываем шрифт
+            // Указываем шрифт для текста
             paraCount.Range.Font.Size = 14;
             // Задаём текст
             paraCount.Range.Text = $"Всего жильцов: {AllOwners().Count}";
-            // Указываем положение на странице
+            // Указываем выравнивание текста
             paraCount.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
             // Убираем отступ
             paraCount.Range.ParagraphFormat.SpaceAfter = 0;
-            // Добавляем на документ
+            // Добавляем текст в документ
             paraCount.Range.InsertParagraphAfter();
 
-            // Создаём таблицу
+            // Создаём параграф для таблицы
             Word.Paragraph tableParagraph = doc.Paragraphs.Add();
-            // Добавляем на документ
+            // Добавляем таблицу в документ
             Word.Table paymentsTable = doc.Tables.Add(tableParagraph.Range, AllOwners().Count + 1, 6);
-            // Указываем границы таблицы
+            // Устанавливаем границы таблицы
             paymentsTable.Borders.InsideLineStyle = paymentsTable.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
-            // Указываем положение таблицы
+            // Указываем вертикальное выравнивание ячеек
             paymentsTable.Range.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
 
-            // Создаём заголовки в таблице
+            // Создаём заголовки таблицы
             Cell("№", paymentsTable.Cell(1, 1).Range);
             Cell("Номер квартиры", paymentsTable.Cell(1, 2).Range);
             Cell("Фамилия", paymentsTable.Cell(1, 3).Range);
@@ -105,6 +105,7 @@ namespace Word_Kylosov.Context
             Cell("Отчество", paymentsTable.Cell(1, 5).Range);
             Cell("Фото", paymentsTable.Cell(1, 6).Range);
 
+            // Получаем список всех жильцов и сортируем по номеру квартиры
             var allOwners = AllOwners();
             allOwners.Sort((x, y) => x.NumberRoom.CompareTo(y.NumberRoom));
 
@@ -115,23 +116,27 @@ namespace Word_Kylosov.Context
             {
                 var owner = allOwners[i];
 
+                // Добавляем номер строки
                 Cell((i + 1).ToString(), paymentsTable.Cell(2 + i, 1).Range);
-                if(owner.NumberRoom != LastRoom)
+                if (owner.NumberRoom != LastRoom)
                 {
+                    // Добавляем номер квартиры, если он отличается от предыдущего
                     Cell(owner.NumberRoom.ToString(), paymentsTable.Cell(2 + i, 2).Range);
                     LastRoom = owner.NumberRoom;
                 }
                 else
                 {
+                    // Объединяем ячейки для одинаковых номеров квартир
                     paymentsTable.Cell(1 + i, 2).Merge(paymentsTable.Cell(2 + i, 2));
                     LastRoom = owner.NumberRoom;
                 }
-                
+
+                // Добавляем фамилию, имя и отчество жильца
                 Cell(owner.LastName, paymentsTable.Cell(2 + i, 3).Range, Word.WdParagraphAlignment.wdAlignParagraphLeft);
                 Cell(owner.FirstName, paymentsTable.Cell(2 + i, 4).Range, Word.WdParagraphAlignment.wdAlignParagraphLeft);
                 Cell(owner.SurName, paymentsTable.Cell(2 + i, 5).Range, Word.WdParagraphAlignment.wdAlignParagraphLeft);
 
-                // Добавляем фото
+                // Добавляем фото жильца, если оно указано
                 string photoPath = owner.PhotoPath;
                 if (!string.IsNullOrEmpty(photoPath))
                 {
@@ -148,10 +153,12 @@ namespace Word_Kylosov.Context
             app.Quit();
         }
 
+        // Метод для создания ячейки таблицы с текстом и выравниванием
         public static void Cell(string Text, Word.Range Cell, Word.WdParagraphAlignment Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter)
         {
             Cell.Text = Text;
             Cell.ParagraphFormat.Alignment = Alignment;
         }
+
     }
 }
